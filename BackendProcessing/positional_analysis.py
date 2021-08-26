@@ -4,7 +4,8 @@ stockfish = Stockfish("/home/daksh/Projects/Chess-Analyzer-1000/Engines/stockfis
 stockfish = Stockfish(parameters={"Threads": 2, "Minimum Thinking Time": 30, "Ponder": True})
 
 #stockfish.set_fen_position("rnbqkbnr/pppp1ppp/8/4p3/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 1")
-stockfish.set_fen_position("r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 3 3")
+#stockfish.set_fen_position("r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 3 3")
+stockfish.set_fen_position("r1bBk2r/ppp2ppp/2p5/8/4n3/3P4/PPP1KbPP/RN1Q1B1R b kq - 1 8")
 def gof(stockfish):
     print("Here is the position on the board:")
     print()
@@ -52,7 +53,8 @@ def gof(stockfish):
             return stockfish, (cp/100), topmoves
 stockfish, eval, bestmoves = gof(stockfish)
 #move = "g2g4"
-move = "g8f6"
+#move = "g8f6"
+move = "c8h3"
 bls = [x["Move"] for x in bestmoves]
 checkmates = [x["Mate"] for x in bestmoves]
 for x in range(0, len(checkmates)):
@@ -74,4 +76,6 @@ if eval2 <= -10000 or eval2 >= 10000:
     isMate2 = True
 print(isMate, isMate2, eval)
 if not isMate and isMate2:
-    print("Game-losing blunder!")
+    print("Game-losing blunder! This move blunders forced mate or mate-in-one.")
+if not isMate2 and isMate:
+    print("Missed Win! You missed a move that could've won the game.")
