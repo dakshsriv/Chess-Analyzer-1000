@@ -1,4 +1,5 @@
 from stockfish import Stockfish
+from sys import argv
 
 stockfish = Stockfish("/home/daksh/Projects/Chess-Analyzer-1000/Engines/stockfish_14_linux_x64/stockfish_14_x64")
 stockfish = Stockfish(parameters={"Threads": 2, "Minimum Thinking Time": 30, "Ponder": True})
@@ -79,3 +80,13 @@ if not isMate and isMate2:
     print("Game-losing blunder! This move blunders forced mate or mate-in-one.")
 if not isMate2 and isMate:
     print("Missed Win! You missed a move that could've won the game.")
+if not isMate and not isMate2:
+    evalDiff = eval2 - eval
+    if evalDiff <= -3:
+        print("That move was a blunder! It was a very bad move.")
+    elif evalDiff <= -2:
+        print("That move was a big mistake. It was a fairly bad move.")
+    elif evalDiff <= -1:
+        print("That move was a small mistake. It was a mildly bad move.")
+    elif evalDiff <- 0.5:
+        print("That move was an inaccuracy. It was a weak move.")
