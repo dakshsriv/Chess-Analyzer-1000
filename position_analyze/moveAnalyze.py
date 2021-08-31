@@ -86,13 +86,12 @@ def getStats(fen, move):
     elif move == bls[1]:
         #print(f"Best move! {bls[0]} is an alternative.")
         moveQuality = "Best move"
-    
     elif move == bls[2]:
         #print(f"Best move! {bls[0]} and {bls[1]} are alternatives.")
         moveQuality = "Best move"
     stockfish.make_moves_from_current_position([move])
     stockfish, eval2, bestmoves2 = gof(stockfish)
-    bls2 = [x["Move"] for x in bestmoves]
+    bls2 = [x["Move"] for x in bestmoves2]
     isMate2 = False
     if eval2 <= -10000 or eval2 >= 10000:
         isMate2 = True

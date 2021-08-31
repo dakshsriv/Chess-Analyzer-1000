@@ -21,19 +21,26 @@ def test_bestmove1():
     else:
         eval = cp/100
     bls = stockfish.get_top_moves(3)
+    bls = [x["Move"] for x in bls]
     stockfish.make_moves_from_current_position([move])
     eval2 = stockfish.get_evaluation()
     cp2 = eval2["value"]
     if eval2["type"] == "mate":
-        eval2 = cp*10000
+        eval2 = cp2*10000
     else:
-        eval2 = cp/100
+        eval2 = cp2/100
     bls2 = stockfish.get_top_moves(3)
+    bls2 = [x["Move"] for x in bls2]
+    bls = set(bls)
+    bls2 = set(bls2)
     lz = position_analyze.moveAnalyze.getStats(fen, move)
+    lz[2] = set(lz[2])
+    lz[4] = set(lz[4])
     pprint.pprint(lz)
     la = ["Best move", eval, bls, eval2, bls2]
     pprint.pprint(la)
-    assert ["Best move", eval, bls, eval2, bls2] == lz
+    #assert ["Best move", eval, bls, eval2, bls2] == lz
+    assert la == lz 
 
 
 test_bestmove1()
