@@ -116,5 +116,5 @@ def getStats(fen, move):
             moveQuality = "Small Mistake"
         elif evalDiff <- 0.5:
             moveQuality = "Inaccuracy"
-        return moveQuality, eval, bls, eval2, bls2
+        return [moveQuality, eval, bls, eval2, bls2]
         
