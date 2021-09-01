@@ -6,9 +6,7 @@ import position_analyze.moveAnalyze
 import pytest, pprint
 from stockfish import Stockfish
 
-def test_bestmove1():
-    move = "b8c6"
-    fen = "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2"
+def gb(fen, move):
     stockfish = Stockfish("Engines/stockfish_14_linux_x64/stockfish_14_x64")
     stockfish = Stockfish(parameters={"Threads": 2, "Minimum Thinking Time": 30, "Ponder": True})
     stockfish.set_fen_position(fen)
@@ -34,13 +32,33 @@ def test_bestmove1():
     bls = set(bls)
     bls2 = set(bls2)
     lz = position_analyze.moveAnalyze.getStats(fen, move)
+
+    return eval, bls, eval2, bls2
+    
+def test_bestmove():
+    move = "b8c6"
+    fen = "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2"
+    lz = position_analyze.moveAnalyze.getStats(fen, move)
     lz[2] = set(lz[2])
     lz[4] = set(lz[4])
     pprint.pprint(lz)
+    eval, bls, eval2, bls2 = gb(fen, move)
     la = ["Best move", eval, bls, eval2, bls2]
     pprint.pprint(la)
     #assert ["Best move", eval, bls, eval2, bls2] == lz
-    assert la == lz 
+    assert la == lz
+    fen = "r1b1k2r/pp3ppp/2p5/3p4/3P4/2n5/PPP3PP/R1B1KB2 w kq - 0 17"
+    move = "b2b3"
+    move = "b8c6"
+    fen = "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2"
+    lz = position_analyze.moveAnalyze.getStats(fen, move)
+    lz[2] = set(lz[2])
+    lz[4] = set(lz[4])
+    pprint.pprint(lz)
+    eval, bls, eval2, bls2 = gb(fen, move)
+    la = ["Best move", eval, bls, eval2, bls2]
+    pprint.pprint(la)
+    assert la != lz
 
 
-test_bestmove1()
+test_bestmove()
