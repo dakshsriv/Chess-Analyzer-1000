@@ -14,14 +14,6 @@ move =  "bh3"
 
 print("Access!")
 
-try:
-    if __name__ == "__main__" and sys.argv[1] == "-d":
-        fen = sys.argv[2] + " " + sys.argv[3] + " " + sys.argv[4] + " " + sys.argv[5] + " " + sys.argv[6] + " " + sys.argv[7]
-        stockfish.set_fen_position(fen)
-        move = sys.argv[8]
-except:
-    pass
-
 def gof(stockfish):
 #    print("Here is the position on the board:")
 #    print()
@@ -66,6 +58,7 @@ def gof(stockfish):
 #               print(f'{loops}. {x["Move"]} yielding {(x["Mate"])}')
     return stockfish, (cp/100), topmoves
 
+
 def getStats(fen, move):
     stockfish = Stockfish("/home/daksh/Projects/Chess_Analyzer/Engines/stockfish_14_linux_x64/stockfish_14_x64")
     stockfish = Stockfish(parameters={"Threads": 2, "Minimum Thinking Time": 30, "Ponder": True})
@@ -80,15 +73,6 @@ def getStats(fen, move):
             checkmates[x] = False
     isMate = checkmates[0] or checkmates[1] or checkmates[2]
     print(isMate)
-    if move == bls[0]:
-        #print("Best move!")
-        moveQuality = "Best move"
-    elif move == bls[1]:
-        #print(f"Best move! {bls[0]} is an alternative.")
-        moveQuality = "Best move"
-    elif move == bls[2]:
-        #print(f"Best move! {bls[0]} and {bls[1]} are alternatives.")
-        moveQuality = "Best move"
     stockfish.make_moves_from_current_position([move])
     stockfish, eval2, bestmoves2 = gof(stockfish)
     bls2 = [x["Move"] for x in bestmoves2]
@@ -104,6 +88,8 @@ def getStats(fen, move):
         moveQuality = "Missed Win"
     if not isMate and not isMate2:
         evalDiff = eval2 - eval
+        print(f"eval2 is {eval2}, eval is {eval}")
+        print(evalDiff)
         if evalDiff <= -3:
             #print("That move was a blunder! It was a very bad move.")
             moveQuality = "Blunder"
@@ -113,7 +99,26 @@ def getStats(fen, move):
         elif evalDiff <= -1:
             print("That move was a small mistake. It was a mildly bad move.")
             moveQuality = "Small Mistake"
-        elif evalDiff <- 0.5:
+        elif evalDiff <= 0.5:
             moveQuality = "Inaccuracy"
+
+        if move == bls[0]:
+        #print("Best move!")
+            moveQuality = "Best move"
+        elif move == bls[1]:
+            #print(f"Best move! {bls[0]} is an alternative.")
+            moveQuality = "Best move"
+        elif move == bls[2]:
+            #print(f"Best move! {bls[0]} and {bls[1]} are alternatives.")
+            moveQuality = "Best move"
         return [moveQuality, eval, bls, eval2, bls2]
         
+
+try:
+    if __name__ == "__main__" and sys.argv[1] == "-d":
+        fen = sys.argv[2] + " " + sys.argv[3] + " " + sys.argv[4] + " " + sys.argv[5] + " " + sys.argv[6] + " " + sys.argv[7]
+        stockfish.set_fen_position(fen)
+        move = sys.argv[8]
+        print(getStats(fen, move))
+except:
+    pass
