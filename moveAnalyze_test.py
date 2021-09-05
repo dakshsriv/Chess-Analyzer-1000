@@ -47,16 +47,19 @@ def test_bestmove():
     #assert ["Best move", eval, bls, eval2, bls2] == lz
     assert la == lz
     #fen2 = "r1b1k2r/pp3ppp/2p5/3p4/3P4/2n5/PPP3PP/R1B1KB2 w kq - 0 17"
-    move2 = "b2b3"
-    fen2 = "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2"
-    lz2 = position_analyze.moveAnalyze.getStats(fen2, move2)
-    lz2[2] = set(lz2[2])
-    lz2[4] = set(lz2[4])
-    pprint.pprint(lz2)
-    eval2, bls2, eval22, bls22 = gb(fen2, move2)
-    la2 = ["Best move", eval2, bls2, eval22, bls22]
-    pprint.pprint(la2)
-    assert la2 != lz2
+    move = "c6d4"
+    fen = "r3k2r/ppp2Npp/2n5/3Bpb2/5q2/8/PPPPK1PP/RNBQ3R b kq - 2 11"
+    lz = position_analyze.moveAnalyze.getStats(fen, move)
+    lz[2] = set(lz[2])
+    lz[4] = set(lz[4])
+    pprint.pprint(lz)
+    eval, bls, eval2, bls2 = gb(fen, move)
+    la = ["Best move", eval, bls, eval2, bls2]
+    pprint.pprint(la)
+    #assert ["Best move", eval, bls, eval2, bls2] == lz
+    assert la == lz
 
+def test_inaccuracy():
+    pass
 
 test_bestmove()
