@@ -28,31 +28,31 @@ def gof(stockfish):
         return stockfish, cp*10000, topmoves
     else:
        cpfromzero = cp/100
-       if cp > 0:
-           print(f"The situation is in white's favour by {cp/100} points")
-       elif cp < 0:
-           print(f"The situation is in black's favour by {cp*-1/100} points")
-           cpfromzero *= -1
-       if cpfromzero <= 0.1:
-           print("However, this advantage is negligible.")
-       elif cpfromzero < 1:
-          print("However, this advantage is easy to equalize. It can be obtained from tiny gambits.")
-       elif cpfromzero < 3:
-           print("This type of advantage is obtained primarily from other sacrifices or gambits. If not from one, this can be tough to equalize.")
-       elif cpfromzero < 9:
-          print("This is a considerable advantage caused by big sacrificing or blundering. Recovering is basically hopeless.")
-       elif cpfromzero < 30:
-           print("This is a colossal advantage that is almost always a guaranteed win")
-       else:
-           print("This is a perfectly equal position.")
+#       if cp > 0:
+#           print(f"The situation is in white's favour by {cp/100} points")
+#       elif cp < 0:
+#           print(f"The situation is in black's favour by {cp*-1/100} points")
+#           cpfromzero *= -1
+#       if cpfromzero <= 0.1:
+#           print("However, this advantage is negligible.")
+#       elif cpfromzero < 1:
+#           print("However, this advantage is easy to equalize. It can be obtained from tiny gambits.")
+#       elif cpfromzero < 3:
+#           print("This type of advantage is obtained primarily from other sacrifices or gambits. If not from one, this can be tough to equalize.")
+#       elif cpfromzero < 9:
+#           print("This is a considerable advantage caused by big sacrificing or blundering. Recovering is basically hopeless.")
+#       elif cpfromzero < 30:
+#           print("This is a colossal advantage that is almost always a guaranteed win")
+#       else:
+#           print("This is a perfectly equal position.")
         #print(topmoves)
-       loops = 0
-       for x in topmoves:
-           loops = loops + 1
-           try:
-               print(f'{loops}. {x["Move"]} yielding {(x["Centipawn"])/100}')
-           except TypeError:
-               print(f'{loops}. {x["Move"]} yielding {(x["Mate"])}')
+#       loops = 0
+#       for x in topmoves:
+#           loops = loops + 1
+#           try:
+#               print(f'{loops}. {x["Move"]} yielding {(x["Centipawn"])/100}')
+#           except TypeError:
+#               print(f'{loops}. {x["Move"]} yielding {(x["Mate"])}')
     return stockfish, (cp/100), topmoves
 
 
