@@ -1,27 +1,13 @@
 from stockfish import Stockfish
 import sys
 
-#stockfish.set_fen_position("rnbqkbnr/pppp1ppp/8/4p3/5P2/8/PPPPP1PP/RNBQKBNR w KQkq - 0 1")
-#stockfish.set_fen_position("r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 3 3")
-#stockfish.set_fen_position("r1bBk2r/ppp2ppp/2p5/8/4n3/3P4/PPP1KbPP/RN1Q1B1R b kq - 1 8")
-
-#move = "g2g4"
-#move = "g8f6"
 move =  "bh3"
 
 print("Access!")
 
 def gof(stockfish):
-#    print("Here is the position on the board:")
-#    print()
-#    print(stockfish.get_board_visual())
-#    print(stockfish.get_fen_position())
-#    print("  a   b   c   d   e   f   g   h")
-#    print()
-#    print(f"The best move is {best_move}")
     eval = stockfish.get_evaluation()
     cp = eval["value"]
-#    print(eval)
     topmoves = stockfish.get_top_moves(3)
     if eval["type"] == "mate":
         print(f"Checkmate in {cp*-1} moves")
